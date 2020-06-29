@@ -18,7 +18,30 @@ class NewVisitorTest(unittest.TestCase):
         #The header mentions that this is Bartosz's CV
         self.assertIn('Bartosz\'s CV', self.browser.title)
 
-        self.fail("Finish the test!")
+        #We can see section titles for different sections of the CV
+        #At the top of the page is a title
+        title = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(title, 'Bartosz\'s CV')
+
+        #The first section is an about me section
+        profile = self.browser.find_element_by_id('profile_header')
+        self.assertEqual(profile, 'About Me')
+
+        #The second is education
+        educationHeading = self.browser.find_element_by_id('eduction_header')
+        self.assertEqual(educationHeading, 'Education')
+
+        #The third is experience
+        experienceHeading = self.browser.find_element_by_id('experience_header')
+        self.assertEqual(experienceHeading, 'Experience')
+
+        #The fourth is my interests
+        interestsHeading = self.browser.find_element_by_id('interests_header')
+        self.assertEqual(interestsHeading, 'Interests')
+
+        #Other useful things...
+
+        self.fail('Finish the Test!')
         self.browser.quit()
 
 if __name__ == '__main__':
