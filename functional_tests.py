@@ -24,19 +24,19 @@ class NewVisitorTest(unittest.TestCase):
         self.assertEqual(title, 'Bartosz\'s CV')
 
         #The first section is an about me section
-        profile = self.browser.find_element_by_id('profile_header')
-        self.assertEqual(profile, 'About Me')
+        profile = self.browser.find_element_by_id('profile_header').text
+        self.assertEqual(profile, 'About me')
 
         #The second is education
-        educationHeading = self.browser.find_element_by_id('eduction_header')
+        educationHeading = self.browser.find_element_by_id('education_header').text
         self.assertEqual(educationHeading, 'Education')
 
         #The third is experience
-        experienceHeading = self.browser.find_element_by_id('experience_header')
+        experienceHeading = self.browser.find_element_by_id('experience_header').text
         self.assertEqual(experienceHeading, 'Experience')
 
         #The fourth is my interests
-        interestsHeading = self.browser.find_element_by_id('interests_header')
+        interestsHeading = self.browser.find_element_by_id('interests_header').text
         self.assertEqual(interestsHeading, 'Interests')
 
         #Other useful things...
