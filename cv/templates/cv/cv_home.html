@@ -6,6 +6,17 @@
     </section>
     <section id="education">
         <h2 id="education_header">Education</h2>
+        <div>
+            
+            {% for qualification in qualifications %}
+            <div>
+                <h3><a href="">{{ qualification.title }}</a></h3>
+                <p>Completed: {{ qualification.date_completed }}</p>
+                <p>{{ qualification.text|linebreaksbr }}</p>
+            </div>
+            {% endfor %}
+                
+        </div>
     </section>
     <section id="experience">
         <h2 id="experience_header">Experience</h2>

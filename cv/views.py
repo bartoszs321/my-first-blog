@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# Create your views here.
+from .models import Qualification
 
 def cv_home(request):
-    return render(request, 'cv/cv_home.html')
+    qualifications = Qualification.objects.all()
+    return render(request, 'cv/cv_home.html', {'qualifications' : qualifications})
