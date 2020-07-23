@@ -3,7 +3,10 @@ from django.test import TestCase
 from django.http import HttpRequest  
 from django.template.loader import render_to_string
 
+import time
+
 from cv.views import cv_home
+from .models import Qualification
 
 class CvPageTest(TestCase):
 
@@ -18,18 +21,14 @@ class CvPageTest(TestCase):
         self.assertTemplateUsed(response, 'cv/qualification_edit.html')
     
     def test_can_save_a_qualification_POST_request(self):
-        response = self.client.post('http://localhost:8000/cv/qualification/new/', form={
+        self.client.post('/cv/qualification/new/', {
          'title': 'Bachelor of Computer Science',
          'date_started': '2020-06-18',
          'date_completed': '2020-07-18',
          'awarding_body': 'University of Birmingham',
          'text': 'This is my degree and this is my 10/10 description of what it includes',
           })
-
-        self.assertIn('Bachelor of Computer Science', response.content.decode())
-        self.assertIn('2020-06-18', response.content.decode())
-        self.assertIn('2020-07-18', response.content.decode())
-        self.assertIn('University of Birmingham', response.content.decode())
-        self.assertIn('This is my degree and this is my 10/10 description of what it includes', response.content.decode())
-
-        self.assertTemplateUsed(response, 'cv/qualification_edit.html')
+        
+        self.assertEqual(Qualification.objects.count(), 1)
+        new_item = Qualification.objects.first()
+        self.assertTrue('Bachelor of Computer Science' in new_item.title)

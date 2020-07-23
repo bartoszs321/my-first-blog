@@ -9,7 +9,7 @@
         <div>
             
             {% for qualification in qualifications %}
-            <div class="qualification" id="qualification">
+            <div class="qualification">
                 <h4>{{ qualification.title }}</h4>
                 <p>Completed: {{ qualification.date_completed }}</p>
                 <p>{{ qualification.text|linebreaksbr }}</p>
