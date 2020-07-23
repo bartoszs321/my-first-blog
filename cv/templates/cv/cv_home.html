@@ -20,9 +20,31 @@
     </section>
     <section id="experience">
         <h2 id="experience_header">Experience</h2>
+        <div>
+            
+            {% for experience in experiences %}
+            <div class="experience">
+                <h4>{{ experience.title }}</h4>
+                <h5>{{ experience.company }}</h5>
+                <p>{{ experience.date_started }} - {{ experience.date_completed }}</p>
+                <p>{{ experience.text|linebreaksbr }}</p>
+            </div>
+            {% endfor %}
+                
+        </div>
     </section>
     <section id="interests">
         <h2 id="interests_header">Interests</h2>
+        <div>
+            
+            {% for interest in interests %}
+            <div class="interest">
+                <h4>{{ interest.title }}</h4>
+                <p>{{ interest.text|linebreaksbr }}</p>
+            </div>
+            {% endfor %}
+                
+        </div>
     </section>
 
 

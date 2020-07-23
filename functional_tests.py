@@ -39,11 +39,6 @@ class NewVisitorTest(unittest.TestCase):
         interestsHeading = self.browser.find_element_by_id('interests_header').text
         self.assertEqual(interestsHeading, 'Interests')
 
-        #Other useful things...
-
-        # self.fail('Finish the Test!')
-        self.browser.quit()
-
     def test_can_create_a_new_qualification_and_view_it_later(self):
         #Want to create a new qualification
         self.browser.get('http://localhost:8000/cv/qualification/new/')
@@ -73,12 +68,63 @@ class NewVisitorTest(unittest.TestCase):
         submitButton = self.browser.find_element_by_id('save_button')
         submitButton.click()
 
-        time.sleep(1)
-
         #Find the qualifications section and check if the qualification was added
         qualifications = self.browser.find_element_by_id('education')
-        self.assertTrue('Bachelor of Computer Science' in qualifications.text, f"Qualification not added to home page. Actual contents: {qualifications.text}")
+        self.assertTrue('Bachelor of Computer Science' in qualifications.text,
+         f"Qualification not added to home page. Actual contents: {qualifications.text}")
 
-        self.browser.quit()
+    def test_can_create_a_new_experience_and_view_it_later(self):
+        #Want to add a new experience
+        self.browser.get('http://localhost:8000/cv/experience/new/')
+
+        #You are invited to input the title for the experience
+        titleInputBox = self.browser.find_element_by_id('id_title')
+        titleInputBox.send_keys("Summer Placement at PwC")
+
+        #You are invited to enter your start date and finish date
+        startDateInputBox = self.browser.find_element_by_id('id_date_started')
+        startDateInputBox.send_keys("6/6/2020")
+
+        completeDateInputBox = self.browser.find_element_by_id('id_date_completed')
+        completeDateInputBox.send_keys("Present")
+
+        #You are invited to enter the company your experience is at
+        companyInputBox = self.browser.find_element_by_id('id_company')
+        companyInputBox.send_keys("PwC")
+
+        #You are invited to enter extra detail about your experience
+        detailInputBox = self.browser.find_element_by_id('id_text')
+        detailInputBox.send_keys("Made a bot using Google Cloud Platform")
+
+        #You click submit to save your experience entry
+        submitButton = self.browser.find_element_by_id('save_button')
+        submitButton.click()
+
+        #Check if the experience entry has been added to the home page
+        experience = self.browser.find_element_by_id('experience')
+        self.assertTrue('Summer Placement at PwC' in experience.text,
+        f"Experience not added to home page. Actual content: {experience.text}")
+
+    def test_can_create_a_new_interest_and_view_it_later(self):
+        #Want to add a new interest
+        self.browser.get('http://localhost:8000/cv/interest/new/')
+
+        #You are invited to enter a title for your interest
+        titleInputBox = self.browser.find_element_by_id('id_title')
+        titleInputBox.send_keys('Walking')
+
+        #You are invited to enter any details about your interest
+        detailInputBox = self.browser.find_element_by_id('id_text')
+        detailInputBox.send_keys('I enjoy going for walks in the country side')
+
+        #You click the submit button to save your interest
+        submitButton = self.browser.find_element_by_id('save_button')
+        submitButton.click()
+
+        #Check if the interest entry has been added to the home page
+        interests = self.browser.find_element_by_id('interests')
+        self.assertTrue('Walking' in interests.text,
+        f"Interest not added to home page. Actual content: {interests.text}")
+
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
