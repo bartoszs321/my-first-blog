@@ -30,3 +30,9 @@ class Interest(models.Model):
 
     def __str__(self):
         return self.title
+
+class Profile(models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text

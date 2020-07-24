@@ -3,13 +3,22 @@
 {% block content %}
     <section id="profile">
         <h2 id="profile_header">About me</h2>
+        <div>
+            
+            {% for profile in profiles %}
+            <div class="information" id="information">
+                <p>{{ profile.text|linebreaksbr }}</p>
+            </div>
+            {% endfor %}
+                
+        </div>
     </section>
     <section id="education">
         <h2 id="education_header">Education</h2>
         <div>
             
             {% for qualification in qualifications %}
-            <div class="qualification">
+            <div class="qualification" id="qualification">
                 <h4>{{ qualification.title }}</h4>
                 <p>Completed: {{ qualification.date_completed }}</p>
                 <p>{{ qualification.text|linebreaksbr }}</p>
@@ -18,12 +27,12 @@
                 
         </div>
     </section>
-    <section id="experience">
+    <section id="experiences">
         <h2 id="experience_header">Experience</h2>
         <div>
             
             {% for experience in experiences %}
-            <div class="experience">
+            <div class="experience" id="experience">
                 <h4>{{ experience.title }}</h4>
                 <h5>{{ experience.company }}</h5>
                 <p>{{ experience.date_started }} - {{ experience.date_completed }}</p>
@@ -38,7 +47,7 @@
         <div>
             
             {% for interest in interests %}
-            <div class="interest">
+            <div class="interest" id="interest">
                 <h4>{{ interest.title }}</h4>
                 <p>{{ interest.text|linebreaksbr }}</p>
             </div>

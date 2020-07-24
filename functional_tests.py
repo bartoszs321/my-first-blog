@@ -39,6 +39,23 @@ class NewVisitorTest(unittest.TestCase):
         interestsHeading = self.browser.find_element_by_id('interests_header').text
         self.assertEqual(interestsHeading, 'Interests')
 
+    def test_can_create_a_new_about_me_entry_and_view_it_later(self):
+        #Want to create a new information section
+        self.browser.get('http://localhost:8000/cv/profile/new/')
+
+        #You are invited to enter some information about yourself
+        detailInputBox = self.browser.find_element_by_id('id_text')
+        detailInputBox.send_keys('Some very very very interesting information about me :)')
+
+        #You save the qualification and are redirected to the cv home page
+        submitButton = self.browser.find_element_by_id('save_button')
+        submitButton.click()
+
+        #Find profile section of website and see if new information has been added
+        profile = self.browser.find_element_by_id('profile')
+        self.assertTrue('Some very very very interesting information about me :)' in profile.text,
+         f"Information not added to home page. Actual contents: {profile.text}")
+
     def test_can_create_a_new_qualification_and_view_it_later(self):
         #Want to create a new qualification
         self.browser.get('http://localhost:8000/cv/qualification/new/')
@@ -101,7 +118,7 @@ class NewVisitorTest(unittest.TestCase):
         submitButton.click()
 
         #Check if the experience entry has been added to the home page
-        experience = self.browser.find_element_by_id('experience')
+        experience = self.browser.find_element_by_id('experiences')
         self.assertTrue('Summer Placement at PwC' in experience.text,
         f"Experience not added to home page. Actual content: {experience.text}")
 

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Qualification, Experience, Interest
+from .models import Qualification, Experience, Interest, Profile
 
 class QualificationForm(forms.ModelForm):
 
@@ -19,3 +19,9 @@ class InterestForm(forms.ModelForm):
     class Meta:
         model = Interest
         fields = ('title', 'text',)
+
+class ProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('text',)

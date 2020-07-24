@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 import time
 
 from cv.views import cv_home
-from .models import Qualification, Experience
+from .models import Qualification, Experience, Interest, Profile
 
 class CvPageTest(TestCase):
 
@@ -19,6 +19,23 @@ class CvPageTest(TestCase):
 
         self.assertTemplateUsed(response, 'cv/cv_home.html')
 
+    ##
+    ## Profile Tests
+    ##
+
+    def test_new_profile_returns_correct_html(self):
+        response = self.client.get('/cv/profile/new/')
+
+        self.assertTemplateUsed(response, 'cv/profile_edit.html')
+
+    def test_can_save_a_profile_POST_request(self):
+        self.client.post('/cv/profile/new/', {
+            'text': "Personal Email: abc@gmail.com\n University Email: abc123@student.bham.ac.uk"
+        })
+
+        self.assertEqual(Profile.objects.count(), 1)
+        new_item = Profile.objects.first()
+        self.assertTrue('Personal Email: abc@gmail.com\n University Email: abc123@student.bham.ac.uk' in new_item.text)
     ##
     ## Qualification Tests
     ##
@@ -71,3 +88,19 @@ class CvPageTest(TestCase):
         response = self.client.get('/cv/interest/new/')
 
         self.assertTemplateUsed(response, 'cv/interest_edit.html')
+
+    def test_can_save_an_interest_POST_request(self):
+        self.client.post('/cv/interest/new/', {
+         'title': 'Walking',
+         'text': 'I enjoy going for walks in the country side',
+          })
+
+        self.assertEqual(Interest.objects.count(), 1)
+        new_item = Interest.objects.first()
+        self.assertTrue('Walking' in new_item.title)
+    
+    ##
+    ## Deletion Tests
+    ##
+
+    
