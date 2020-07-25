@@ -98,12 +98,59 @@ class CvPageTest(TestCase):
         self.assertEqual(Interest.objects.count(), 1)
         new_item = Interest.objects.first()
         self.assertTrue('Walking' in new_item.title)
+
+    ##
+    ## deletion tests
+    ##
+
+    def test_can_delete_a_profile_entry(self):
+        self.client.post('/cv/profile/new/', {
+            'text': "Personal Email: abc@gmail.com\n University Email: abc123@student.bham.ac.uk"
+        })
+
+        self.assertEqual(Profile.objects.count(), 1)
+
+        self.client.get('/cv/profile/1/remove/')
+
+        self.assertEqual(Profile.objects.count(), 0)
     
-    ##
-    ## Deletion Tests
-    ##
+    def test_can_delete_a_qualification_entry(self):
+        self.client.post('/cv/qualification/new/', {
+         'title': 'Bachelor of Computer Science',
+         'date_started': '2020-06-18',
+         'date_completed': '2020-07-18',
+         'awarding_body': 'University of Birmingham',
+         'text': 'This is my degree and this is my 10/10 description of what it includes',
+          })
+        self.assertEqual(Qualification.objects.count(), 1)
 
-    def test_delete_profile_detail_returns_correct_html(self):
-        response = self.client.get('/cv/profile/remove/')
+        self.client.get('/cv/qualification/1/remove/')
 
-        self.assertTemplateUsed(response, 'cv/profile_remove.html')
+        self.assertEqual(Qualification.objects.count(), 0)
+
+    def test_can_delete_an_experience_entry(self):
+        self.client.post('/cv/experience/new/', {
+         'title': 'PwC Summer Placement',
+         'date_started': '6/6/2020',
+         'date_completed': 'Present',
+         'company': 'PwC',
+         'text': 'Made a bot using Google Cloud Platform',
+        })
+        
+        self.assertEqual(Experience.objects.count(), 1)
+
+        self.client.get('/cv/experience/1/remove/')
+
+        self.assertEqual(Experience.objects.count(), 0)
+
+    def test_can_delete_an_interest_entry(self):
+        self.client.post('/cv/interest/new/', {
+         'title': 'Walking',
+         'text': 'I enjoy going for walks in the country side',
+        })
+
+        self.assertEqual(Interest.objects.count(), 1)
+
+        self.client.get('/cv/interest/1/remove/')
+
+        self.assertEqual(Interest.objects.count(), 0)   

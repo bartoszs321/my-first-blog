@@ -143,7 +143,116 @@ class NewVisitorTest(unittest.TestCase):
         self.assertTrue('Walking' in interests.text,
         f"Interest not added to home page. Actual content: {interests.text}")
 
-    def test_can_delete_a_profile_entry(self):
+    def test_can_edit_a_profile_entry(self):
+        #You are looking at the cv home page and want to edit a profile entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving the contents of the current profile section
+        oldProfile = self.browser.find_element_by_id('profile')
+        oldProfile = oldProfile.text
+
+        #Find all profile entries and click the edit button on the last one
+        editButtons = self.browser.find_elements_by_id('edit_profile')
+        editButtons[len(editButtons)-1].click()
+
+        #Your are shown the edit page for a profile
+        title = self.browser.find_element_by_tag_name('h2').text
+        self.assertEqual(title, 'New Profile Details')
+
+        #You input new details for your profile paragraph
+        detailInputBox = self.browser.find_element_by_id('id_text')
+        detailInputBox.send_keys('I have changed the detail of my profile')
+
+        submitButton = self.browser.find_element_by_id('save_button')
+        submitButton.click()
+
+        #Check if the contents on the home page has changed
+        newProfile = self.browser.find_element_by_id('profile')
+
+        self.assertNotEqual(oldProfile, newProfile.text)
+
+    def test_can_edit_a_qualification_entry(self):
+        #You are looking at the cv home page and want to edit a qualification entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving contents of current qualification section
+        oldQualifications = self.browser.find_element_by_id('education')
+        oldQualifications = oldQualifications.text
+
+        #Find all qualification entries and click the edit button on the last one
+        editButtons = self.browser.find_elements_by_id('edit_qualification')
+        editButtons[len(editButtons)-1].click()
+
+        #You are shown the edit page for a qualification and change the description
+        title = self.browser.find_element_by_tag_name('h2').text
+        self.assertEqual(title, 'New Qualification')
+
+        detailInputBox = self.browser.find_element_by_id('id_text')
+        detailInputBox.send_keys('I have changed something or other')
+ 
+        submitButton = self.browser.find_element_by_id('save_button')
+        submitButton.click()
+
+        #Check if the qualifications section has updated
+        newQualifications = self.browser.find_element_by_id('education')
+
+        self.assertNotEqual(oldQualifications, newQualifications)  
+
+    def test_can_edit_an_experience_entry(self):
+        #You are looking at the cv home page and want to edit an experience entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving contents of current experience section
+        oldExperiences = self.browser.find_element_by_id('experiences')
+        oldExperiences = oldExperiences.text
+
+        #Find all experiences entries and click the edit button on the last one
+        editButtons = self.browser.find_elements_by_id('edit_experience')
+        editButtons[len(editButtons)-1].click()
+
+        #You are shown the edit page for an experience and change the description
+        title = self.browser.find_element_by_tag_name('h2').text
+        self.assertEqual(title, 'New Experience')
+
+        detailInputBox = self.browser.find_element_by_id('id_text')
+        detailInputBox.send_keys('I have changed something or other')
+ 
+        submitButton = self.browser.find_element_by_id('save_button')
+        submitButton.click()
+
+        #Check if the experience section has updated
+        newExperiences = self.browser.find_element_by_id('experiences')
+
+        self.assertNotEqual(oldExperiences, newExperiences)
+
+    def test_can_edit_an_interest_entry(self):
+        #You are looking at the cv home page and want to edit an interest entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving contents of current interest section
+        oldInterests = self.browser.find_element_by_id('interests')
+        oldInterests = oldInterests.text
+
+        #Find all interest entries and click the edit button on the last one
+        editButtons = self.browser.find_elements_by_id('edit_interest')
+        editButtons[len(editButtons)-1].click()
+
+        #You are shown the edit page for an interest and change the description
+        title = self.browser.find_element_by_tag_name('h2').text
+        self.assertEqual(title, 'New Interest')
+
+        detailInputBox = self.browser.find_element_by_id('id_text')
+        detailInputBox.send_keys('I have changed something or other')
+ 
+        submitButton = self.browser.find_element_by_id('save_button')
+        submitButton.click()
+
+        #Check if the interests section has updated
+        newInterests = self.browser.find_element_by_id('interests')
+
+        self.assertNotEqual(oldInterests, newInterests)  
+
+    def test_can_zdelete_a_profile_entry(self):
         #You are looking at the home page of the cv and want to delete a profile entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -160,7 +269,7 @@ class NewVisitorTest(unittest.TestCase):
 
         self.assertEqual(numberOfProfiles-1, newNumberOfProfiles)
 
-    def test_can_delete_an_education_entry(self):
+    def test_can_zdelete_an_education_entry(self):
         #You are looking at the home page of the cv and want to delete an education entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -177,7 +286,7 @@ class NewVisitorTest(unittest.TestCase):
 
         self.assertEqual(numberOfQualifications-1, newNumberOfQualifications)
 
-    def test_can_delete_an_experience_entry(self):
+    def test_can_zdelete_an_experience_entry(self):
         #You are looking at the home page of the cv and want to delete an experience entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -194,7 +303,7 @@ class NewVisitorTest(unittest.TestCase):
 
         self.assertEqual(numberOfExperiences-1, newNumberOfExperiences)
 
-    def test_can_delete_an_interest_entry(self):
+    def test_can_zdelete_an_interest_entry(self):
         #You are looking at the home page of the cv and want to delete an interest entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -210,6 +319,7 @@ class NewVisitorTest(unittest.TestCase):
         newNumberOfInterests = len(newInterests)
 
         self.assertEqual(numberOfInterests-1, newNumberOfInterests)
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
