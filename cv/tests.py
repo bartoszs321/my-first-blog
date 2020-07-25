@@ -103,4 +103,7 @@ class CvPageTest(TestCase):
     ## Deletion Tests
     ##
 
-    
+    def test_delete_profile_detail_returns_correct_html(self):
+        response = self.client.get('/cv/profile/remove/')
+
+        self.assertTemplateUsed(response, 'cv/profile_remove.html')

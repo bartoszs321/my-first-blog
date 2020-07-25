@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Qualification, Experience, Interest, Profile
 from .forms import QualificationForm, ExperienceForm, InterestForm, ProfileForm
@@ -58,3 +58,23 @@ def profile_edit(request):
     else:
         form = ProfileForm()
     return render(request, 'cv/profile_edit.html', {'form': form})
+
+def profile_remove(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    profile.delete()
+    return redirect('cv_home')
+
+def qualification_remove(request, pk):
+    qualification = get_object_or_404(Qualification, pk=pk)
+    qualification.delete()
+    return redirect('cv_home')
+
+def experience_remove(request, pk):
+    experience = get_object_or_404(Experience, pk=pk)
+    experience.delete()
+    return redirect('cv_home')
+
+def interest_remove(request, pk):
+    interest = get_object_or_404(Interest, pk=pk)
+    interest.delete()
+    return redirect('cv_home')

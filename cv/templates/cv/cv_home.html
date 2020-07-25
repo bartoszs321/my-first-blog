@@ -7,6 +7,7 @@
             
             {% for profile in profiles %}
             <div class="information" id="information">
+                <a class="button" id="remove_profile" href="{% url 'profile_remove' pk=profile.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
                 <p>{{ profile.text|linebreaksbr }}</p>
             </div>
             {% endfor %}
@@ -19,7 +20,7 @@
             
             {% for qualification in qualifications %}
             <div class="qualification" id="qualification">
-                <h4>{{ qualification.title }}</h4>
+                <h4>{{ qualification.title }}</h4><a class="button" id="remove_qualification" href="{% url 'qualification_remove' pk=qualification.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
                 <p>Completed: {{ qualification.date_completed }}</p>
                 <p>{{ qualification.text|linebreaksbr }}</p>
             </div>
@@ -33,7 +34,7 @@
             
             {% for experience in experiences %}
             <div class="experience" id="experience">
-                <h4>{{ experience.title }}</h4>
+                <h4>{{ experience.title }}</h4><a class="button" id="remove_experience" href="{% url 'experience_remove' pk=experience.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
                 <h5>{{ experience.company }}</h5>
                 <p>{{ experience.date_started }} - {{ experience.date_completed }}</p>
                 <p>{{ experience.text|linebreaksbr }}</p>
@@ -48,7 +49,7 @@
             
             {% for interest in interests %}
             <div class="interest" id="interest">
-                <h4>{{ interest.title }}</h4>
+                <h4>{{ interest.title }}</h4><a class="button" id="remove_interest" href="{% url 'interest_remove' pk=interest.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
                 <p>{{ interest.text|linebreaksbr }}</p>
             </div>
             {% endfor %}

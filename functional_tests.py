@@ -143,5 +143,73 @@ class NewVisitorTest(unittest.TestCase):
         self.assertTrue('Walking' in interests.text,
         f"Interest not added to home page. Actual content: {interests.text}")
 
+    def test_can_delete_a_profile_entry(self):
+        #You are looking at the home page of the cv and want to delete a profile entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving number of profile entries before any actions taken
+        profiles = self.browser.find_elements_by_id('information')
+        numberOfProfiles = len(profiles)
+
+        #You click the button to remove a post
+        deleteButtons = self.browser.find_elements_by_id('remove_profile')
+        deleteButtons[len(deleteButtons)-1].click()
+
+        newProfiles = self.browser.find_elements_by_id('information')
+        newNumberOfProfiles = len(newProfiles)
+
+        self.assertEqual(numberOfProfiles-1, newNumberOfProfiles)
+
+    def test_can_delete_an_education_entry(self):
+        #You are looking at the home page of the cv and want to delete an education entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving number of education entries before any actions taken
+        qualifications = self.browser.find_elements_by_id('qualification')
+        numberOfQualifications = len(qualifications)
+
+        #You click the button to remove a qualification
+        deleteButtons = self.browser.find_elements_by_id('remove_qualification')
+        deleteButtons[len(deleteButtons)-1].click()
+
+        newQualifications = self.browser.find_elements_by_id('qualification')
+        newNumberOfQualifications = len(newQualifications)
+
+        self.assertEqual(numberOfQualifications-1, newNumberOfQualifications)
+
+    def test_can_delete_an_experience_entry(self):
+        #You are looking at the home page of the cv and want to delete an experience entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving number of experience entries before any actions taken
+        experiences = self.browser.find_elements_by_id('experience')
+        numberOfExperiences = len(experiences)
+
+        #You click the button to remove an experience
+        deleteButtons = self.browser.find_elements_by_id('remove_experience')
+        deleteButtons[len(deleteButtons)-1].click()
+
+        newExperiences = self.browser.find_elements_by_id('experience')
+        newNumberOfExperiences = len(newExperiences)
+
+        self.assertEqual(numberOfExperiences-1, newNumberOfExperiences)
+
+    def test_can_delete_an_interest_entry(self):
+        #You are looking at the home page of the cv and want to delete an interest entry
+        self.browser.get('http://localhost:8000/cv/')
+
+        #Saving number of interest entries before any actions taken
+        interests = self.browser.find_elements_by_id('interest')
+        numberOfInterests = len(interests)
+
+        #You click the button to remove an interest
+        deleteButtons = self.browser.find_elements_by_id('remove_interest')
+        deleteButtons[len(deleteButtons)-1].click()
+
+        newInterests = self.browser.find_elements_by_id('interest')
+        newNumberOfInterests = len(newInterests)
+
+        self.assertEqual(numberOfInterests-1, newNumberOfInterests)
+
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
