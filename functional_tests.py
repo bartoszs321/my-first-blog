@@ -11,6 +11,18 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def signIn(self):
+        self.browser.get('http://localhost:8000/accounts/login/')
+
+        username = self.browser.find_element_by_id('id_username')
+        password = self.browser.find_element_by_id('id_password')
+
+        username.send_keys('testaccount')
+        password.send_keys('testPass')
+
+        submitButton = self.browser.find_element_by_id('submit')
+        submitButton.click()
+
     def test_can_view_the_cv_and_retrieve_it_later(self):
         #I want to view my CV
         self.browser.get('http://localhost:8000/cv/')
@@ -40,6 +52,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertEqual(interestsHeading, 'Interests')
 
     def test_can_create_a_new_about_me_entry_and_view_it_later(self):
+        self.signIn()
         #Want to create a new information section
         self.browser.get('http://localhost:8000/cv/profile/new/')
 
@@ -57,6 +70,7 @@ class NewVisitorTest(unittest.TestCase):
          f"Information not added to home page. Actual contents: {profile.text}")
 
     def test_can_create_a_new_qualification_and_view_it_later(self):
+        self.signIn()
         #Want to create a new qualification
         self.browser.get('http://localhost:8000/cv/qualification/new/')
 
@@ -91,6 +105,7 @@ class NewVisitorTest(unittest.TestCase):
          f"Qualification not added to home page. Actual contents: {qualifications.text}")
 
     def test_can_create_a_new_experience_and_view_it_later(self):
+        self.signIn()
         #Want to add a new experience
         self.browser.get('http://localhost:8000/cv/experience/new/')
 
@@ -123,6 +138,7 @@ class NewVisitorTest(unittest.TestCase):
         f"Experience not added to home page. Actual content: {experience.text}")
 
     def test_can_create_a_new_interest_and_view_it_later(self):
+        self.signIn()
         #Want to add a new interest
         self.browser.get('http://localhost:8000/cv/interest/new/')
 
@@ -144,6 +160,7 @@ class NewVisitorTest(unittest.TestCase):
         f"Interest not added to home page. Actual content: {interests.text}")
 
     def test_can_edit_a_profile_entry(self):
+        self.signIn()
         #You are looking at the cv home page and want to edit a profile entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -172,6 +189,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertNotEqual(oldProfile, newProfile.text)
 
     def test_can_edit_a_qualification_entry(self):
+        self.signIn()
         #You are looking at the cv home page and want to edit a qualification entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -199,6 +217,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertNotEqual(oldQualifications, newQualifications)  
 
     def test_can_edit_an_experience_entry(self):
+        self.signIn()
         #You are looking at the cv home page and want to edit an experience entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -226,6 +245,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertNotEqual(oldExperiences, newExperiences)
 
     def test_can_edit_an_interest_entry(self):
+        self.signIn()
         #You are looking at the cv home page and want to edit an interest entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -253,6 +273,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertNotEqual(oldInterests, newInterests)  
 
     def test_can_zdelete_a_profile_entry(self):
+        self.signIn()
         #You are looking at the home page of the cv and want to delete a profile entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -270,6 +291,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertEqual(numberOfProfiles-1, newNumberOfProfiles)
 
     def test_can_zdelete_an_education_entry(self):
+        self.signIn()
         #You are looking at the home page of the cv and want to delete an education entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -287,6 +309,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertEqual(numberOfQualifications-1, newNumberOfQualifications)
 
     def test_can_zdelete_an_experience_entry(self):
+        self.signIn()
         #You are looking at the home page of the cv and want to delete an experience entry
         self.browser.get('http://localhost:8000/cv/')
 
@@ -304,6 +327,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertEqual(numberOfExperiences-1, newNumberOfExperiences)
 
     def test_can_zdelete_an_interest_entry(self):
+        self.signIn()
         #You are looking at the home page of the cv and want to delete an interest entry
         self.browser.get('http://localhost:8000/cv/')
 

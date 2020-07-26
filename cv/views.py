@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Qualification, Experience, Interest, Profile
 from .forms import QualificationForm, ExperienceForm, InterestForm, ProfileForm
 
@@ -15,6 +16,7 @@ def cv_home(request):
         'profiles' : profiles,
      })
 
+@login_required
 def qualification_new(request):
     if request.method == "POST":
         form = QualificationForm(request.POST)
@@ -26,6 +28,7 @@ def qualification_new(request):
         form = QualificationForm()
     return render(request, 'cv/qualification_edit.html', {'form': form})
 
+@login_required
 def qualification_edit(request, pk):
     qualification = get_object_or_404(Qualification, pk=pk)
     if request.method == "POST":
@@ -38,6 +41,7 @@ def qualification_edit(request, pk):
         form = QualificationForm(instance=qualification)
     return render(request, 'cv/qualification_edit.html', {'form': form})
 
+@login_required
 def experience_new(request):
     if request.method == "POST":
         form = ExperienceForm(request.POST)
@@ -49,6 +53,7 @@ def experience_new(request):
         form = ExperienceForm()
     return render(request, 'cv/experience_edit.html', {'form': form})
 
+@login_required
 def experience_edit(request, pk):
     experience = get_object_or_404(Experience, pk=pk)
     if request.method == "POST":
@@ -61,6 +66,7 @@ def experience_edit(request, pk):
         form = ExperienceForm(instance=experience)
     return render(request, 'cv/experience_edit.html', {'form': form})
 
+@login_required
 def interest_new(request):
     if request.method == "POST":
         form = InterestForm(request.POST)
@@ -72,6 +78,7 @@ def interest_new(request):
         form = InterestForm()
     return render(request, 'cv/interest_edit.html', {'form': form})
 
+@login_required
 def interest_edit(request, pk):
     interest = get_object_or_404(Interest, pk=pk)
     if request.method == "POST":
@@ -84,6 +91,7 @@ def interest_edit(request, pk):
         form = InterestForm(instance=interest)
     return render(request, 'cv/interest_edit.html', {'form': form})
 
+@login_required
 def profile_new(request):
     if request.method == "POST":
         form = ProfileForm(request.POST)
@@ -95,6 +103,7 @@ def profile_new(request):
         form = ProfileForm()
     return render(request, 'cv/profile_edit.html', {'form': form})
 
+@login_required
 def profile_edit(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
     if request.method == "POST":
@@ -107,22 +116,25 @@ def profile_edit(request, pk):
         form = ProfileForm(instance=profile)
     return render(request, 'cv/profile_edit.html', {'form': form})
     
-
+@login_required
 def profile_remove(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
     profile.delete()
     return redirect('cv_home')
 
+@login_required
 def qualification_remove(request, pk):
     qualification = get_object_or_404(Qualification, pk=pk)
     qualification.delete()
     return redirect('cv_home')
 
+@login_required
 def experience_remove(request, pk):
     experience = get_object_or_404(Experience, pk=pk)
     experience.delete()
     return redirect('cv_home')
 
+@login_required
 def interest_remove(request, pk):
     interest = get_object_or_404(Interest, pk=pk)
     interest.delete()

@@ -2,6 +2,7 @@ from django.urls import resolve
 from django.test import TestCase
 from django.http import HttpRequest  
 from django.template.loader import render_to_string
+from django.contrib.auth.models import User
 
 import time
 
@@ -9,6 +10,10 @@ from cv.views import cv_home
 from .models import Qualification, Experience, Interest, Profile
 
 class CvPageTest(TestCase):
+
+    def signIn(self):
+        User.objects.create_superuser('testaccount', email='test@test.test', password='testPass')
+        self.client.login(username='testaccount', password='testPass')
 
     ##
     ## Home page tests
@@ -24,11 +29,13 @@ class CvPageTest(TestCase):
     ##
 
     def test_new_profile_returns_correct_html(self):
+        self.signIn()
         response = self.client.get('/cv/profile/new/')
 
         self.assertTemplateUsed(response, 'cv/profile_edit.html')
 
     def test_can_save_a_profile_POST_request(self):
+        self.signIn()
         self.client.post('/cv/profile/new/', {
             'text': "Personal Email: abc@gmail.com\n University Email: abc123@student.bham.ac.uk"
         })
@@ -41,11 +48,13 @@ class CvPageTest(TestCase):
     ##
 
     def test_new_qualification_returns_correct_html(self):
+        self.signIn()
         response = self.client.get('/cv/qualification/new/')
 
         self.assertTemplateUsed(response, 'cv/qualification_edit.html')
     
     def test_can_save_a_qualification_POST_request(self):
+        self.signIn()
         self.client.post('/cv/qualification/new/', {
          'title': 'Bachelor of Computer Science',
          'date_started': '2020-06-18',
@@ -63,11 +72,13 @@ class CvPageTest(TestCase):
     ##
 
     def test_new_experience_returns_correct_html(self):
+        self.signIn()
         response = self.client.get('/cv/experience/new/')
 
         self.assertTemplateUsed(response, 'cv/experience_edit.html')
 
     def test_can_save_an_experience_POST_request(self):
+        self.signIn()
         self.client.post('/cv/experience/new/', {
          'title': 'PwC Summer Placement',
          'date_started': '6/6/2020',
@@ -85,11 +96,13 @@ class CvPageTest(TestCase):
     ##
 
     def test_new_interest_returns_correct_html(self):
+        self.signIn()
         response = self.client.get('/cv/interest/new/')
 
         self.assertTemplateUsed(response, 'cv/interest_edit.html')
 
     def test_can_save_an_interest_POST_request(self):
+        self.signIn()
         self.client.post('/cv/interest/new/', {
          'title': 'Walking',
          'text': 'I enjoy going for walks in the country side',
@@ -104,6 +117,7 @@ class CvPageTest(TestCase):
     ##
 
     def test_can_delete_a_profile_entry(self):
+        self.signIn()
         self.client.post('/cv/profile/new/', {
             'text': "Personal Email: abc@gmail.com\n University Email: abc123@student.bham.ac.uk"
         })
@@ -115,6 +129,7 @@ class CvPageTest(TestCase):
         self.assertEqual(Profile.objects.count(), 0)
     
     def test_can_delete_a_qualification_entry(self):
+        self.signIn()
         self.client.post('/cv/qualification/new/', {
          'title': 'Bachelor of Computer Science',
          'date_started': '2020-06-18',
@@ -129,6 +144,7 @@ class CvPageTest(TestCase):
         self.assertEqual(Qualification.objects.count(), 0)
 
     def test_can_delete_an_experience_entry(self):
+        self.signIn()
         self.client.post('/cv/experience/new/', {
          'title': 'PwC Summer Placement',
          'date_started': '6/6/2020',
@@ -144,6 +160,7 @@ class CvPageTest(TestCase):
         self.assertEqual(Experience.objects.count(), 0)
 
     def test_can_delete_an_interest_entry(self):
+        self.signIn()
         self.client.post('/cv/interest/new/', {
          'title': 'Walking',
          'text': 'I enjoy going for walks in the country side',
