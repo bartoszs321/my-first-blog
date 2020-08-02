@@ -1,14 +1,5 @@
-/* h1 a, h2 a {
-    color: #FF9F2E;
-    font-family: 'Lobster'
-}
-
-body {
-    padding-left: 15px;
-} */
-
 .page-header {
-    background-color: #FF9F2E;
+    background-color: #545b5e;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
@@ -19,8 +10,25 @@ body {
     text-decoration: none;
 }
 
+.page-header h1 a:hover {
+    color: #00aeff;
+}
+
 .content {
-    margin-left: 40px;
+    margin: auto;
+    width: 50%;
+    
+}
+
+body {
+    background: url(tj-holowaychuk-1EYMue_AwDw-unsplash.jpg) no-repeat top center fixed;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: lighten;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%
 }
 
 h1, h2, h3, h4 {
@@ -39,15 +47,27 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
-.top-menu, .top-menu:hover, .top-menu:visited {
+.top-menu, .top-menu:visited {
+    background-color: transparent;
     color: #ffffff;
     float: right;
     font-size: 26pt;
     margin-right: 20px;
 }
 
+.top-menu:hover {
+    text-decoration: none;
+    color: #00aeff;
+}
+
 .post {
     margin-bottom: 70px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: solid;
+    border-color: #00aeff;
+    border-width: 3px;
+    border-radius: 15px;
 }
 
 .post h2 a, .post h2 a:visited {
@@ -55,5 +75,16 @@ h1, h2, h3, h4 {
 }
 
 .comment {
-    margin: 20px 0px 20px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: solid;
+    border-color: #00aeff;
+    border-width: 3px;
+    border-radius: 15px;
+}
+
+.col-md-8 {
+    width: 100%
 }

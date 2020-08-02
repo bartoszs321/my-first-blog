@@ -1,29 +1,35 @@
 {% extends 'cv/cv_base.html' %}
 
 {% block content %}
-    <section id="profile">
-        <h2 id="profile_header">About me</h2>
+    <section id="profile" class="cv_section">
+        <h2 id="profile_header"">About me</h2>
+        <a href="{% url 'profile_new' %}" class="button">New</span></a>
+        <br></br>
         <div>
-            
             {% for profile in profiles %}
             <div class="information" id="information">
-                <a class="button" id="remove_profile" href="{% url 'profile_remove' pk=profile.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
-                <a class="button" id="edit_profile" href="{% url 'profile_edit' pk=profile.pk %}"><span class="glyphicon glyphicon-pencil" style='background-color: black;'></span></a>
+                {% if user.is_authenticated %}
+                    <a id="remove_profile" class="borderless_button" href="{% url 'profile_remove' pk=profile.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a id="edit_profile" class="borderless_button" href="{% url 'profile_edit' pk=profile.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
                 <p>{{ profile.text|linebreaksbr }}</p>
             </div>
             {% endfor %}
                 
         </div>
     </section>
-    <section id="education">
+    <section id="education" class="cv_section">
         <h2 id="education_header">Education</h2>
+        <a href="{% url 'qualification_new' %}" class="button">New</span></a>
         <div>
-            
             {% for qualification in qualifications %}
             <div class="qualification" id="qualification">
                 <h4>{{ qualification.title }}</h4>
-                <a class="button" id="remove_qualification" href="{% url 'qualification_remove' pk=qualification.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
-                <a class="button" id="edit_qualification" href="{% url 'qualification_edit' pk=qualification.pk %}"><span class="glyphicon glyphicon-pencil" style='background-color: black;'></span></a>
+                
+                {% if user.is_authenticated %}
+                    <a id="remove_qualification" class="borderless_button" href="{% url 'qualification_remove' pk=qualification.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a id="edit_qualification" class="borderless_button" href="{% url 'qualification_edit' pk=qualification.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
                 <p>Completed: {{ qualification.date_completed }}</p>
                 <p>{{ qualification.text|linebreaksbr }}</p>
             </div>
@@ -31,15 +37,17 @@
                 
         </div>
     </section>
-    <section id="experiences">
+    <section id="experiences" class="cv_section">
         <h2 id="experience_header">Experience</h2>
+        <a href="{% url 'experience_new' %}" class="button">New</a>
         <div>
-            
             {% for experience in experiences %}
             <div class="experience" id="experience">
                 <h4>{{ experience.title }}</h4>
-                <a class="button" id="remove_experience" href="{% url 'experience_remove' pk=experience.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
-                <a class="button" id="edit_experience" href="{% url 'experience_edit' pk=experience.pk %}"><span class="glyphicon glyphicon-pencil" style='background-color: black;'></span></a>
+                {% if user.is_authenticated %}
+                    <a id="remove_experience" class="borderless_button" href="{% url 'experience_remove' pk=experience.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a id="edit_experience" class="borderless_button" href="{% url 'experience_edit' pk=experience.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
                 <h5>{{ experience.company }}</h5>
                 <p>{{ experience.date_started }} - {{ experience.date_completed }}</p>
                 <p>{{ experience.text|linebreaksbr }}</p>
@@ -48,15 +56,18 @@
                 
         </div>
     </section>
-    <section id="interests">
+    <section id="interests" class="cv_section">
         <h2 id="interests_header">Interests</h2>
+        <a href="{% url 'interest_new' %}" class="button">New</a>
         <div>
-            
             {% for interest in interests %}
             <div class="interest" id="interest">
                 <h4>{{ interest.title }}</h4>
-                <a class="button" id="remove_interest" href="{% url 'interest_remove' pk=interest.pk %}"><span class="glyphicon glyphicon-remove" style='background-color: black;'></span></a>
-                <a class="button" id="edit_interest" href="{% url 'interest_edit' pk=interest.pk %}"><span class="glyphicon glyphicon-pencil" style='background-color: black;'></span></a>
+                
+                {% if user.is_authenticated %}
+                    <a id="remove_interest" class="borderless_button" href="{% url 'interest_remove' pk=interest.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a id="edit_interest" class="borderless_button" href="{% url 'interest_edit' pk=interest.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
                 <p>{{ interest.text|linebreaksbr }}</p>
             </div>
             {% endfor %}
