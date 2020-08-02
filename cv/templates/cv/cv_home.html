@@ -3,8 +3,9 @@
 {% block content %}
     <section id="profile" class="cv_section">
         <h2 id="profile_header"">About me</h2>
-        <a href="{% url 'profile_new' %}" class="button">New</span></a>
-        <br></br>
+        {% if user.is_authenticated %}
+             <a href="{% url 'profile_new' %}" class="button">New</span></a>            
+        {% endif %}
         <div>
             {% for profile in profiles %}
             <div class="information" id="information">
@@ -20,7 +21,9 @@
     </section>
     <section id="education" class="cv_section">
         <h2 id="education_header">Education</h2>
-        <a href="{% url 'qualification_new' %}" class="button">New</span></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'qualification_new' %}" class="button">New</span></a>
+        {% endif %}
         <div>
             {% for qualification in qualifications %}
             <div class="qualification" id="qualification">
@@ -39,7 +42,9 @@
     </section>
     <section id="experiences" class="cv_section">
         <h2 id="experience_header">Experience</h2>
-        <a href="{% url 'experience_new' %}" class="button">New</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'experience_new' %}" class="button">New</a>
+            {% endif %}
         <div>
             {% for experience in experiences %}
             <div class="experience" id="experience">
@@ -58,7 +63,9 @@
     </section>
     <section id="interests" class="cv_section">
         <h2 id="interests_header">Interests</h2>
-        <a href="{% url 'interest_new' %}" class="button">New</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'interest_new' %}" class="button">New</a>
+        {% endif %}
         <div>
             {% for interest in interests %}
             <div class="interest" id="interest">
