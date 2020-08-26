@@ -12,8 +12,10 @@ from .models import Qualification, Experience, Interest, Profile
 class CvPageTest(TestCase):
 
     def signIn(self):
+        #Account for testing database on local database
         User.objects.create_superuser('testaccount', email='test@test.test', password='testPass')
-        self.client.login(username='testaccount', password='testPass')
+        if not self.client.login(username='testaccount', password='testPass'):
+            self.fail("Failed to log in")
 
     ##
     ## Home page tests
