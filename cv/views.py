@@ -5,8 +5,8 @@ from .models import Qualification, Experience, Interest, Profile
 from .forms import QualificationForm, ExperienceForm, InterestForm, ProfileForm
 
 def cv_home(request):
-    qualifications = Qualification.objects.all()
-    experiences = Experience.objects.all()
+    qualifications = Qualification.objects.all().order_by('date_completed')
+    experiences = Experience.objects.all().order_by('date_completed')
     interests = Interest.objects.all()
     profiles = Profile.objects.all()
     return render(request, 'cv/cv_home.html', {

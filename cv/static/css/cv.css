@@ -41,6 +41,7 @@ p {
 
 .date {
     color: #828282;
+    font-size: 0.85em;
 }
 
 .save {
@@ -102,4 +103,10 @@ p {
 .borderless_button:hover {
     color: #00aeff;
     transition: 0.3s;
+}
+
+.company_title {
+    font-weight: bold;
+    color: #828282;
+
 }
